@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envio de E-mails</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Selecione os destinatários:</h2>
+        <ul id="email-list">
+            <li><input type="checkbox" class="email" value="smdur.financeiro@gravatai.rs.gov.br"> smdur.financeiro@gravatai.rs.gov.br</li>
+            <li><input type="checkbox" class="email" value="engenheiroalfredopedo@gmail.com"> engenheiroalfredopedo@gmail.com</li>
+            <li><input type="checkbox" class="email" value="smdur.aprovacaopendencia@gravatai.rs.gov.br"> smdur.aprovacaopendencia@gravatai.rs.gov.br</li>
+            <li><input type="checkbox" class="email" value="smop.saneamento@gravatai.rs.gov.br"> smop.saneamento@gravatai.rs.gov.br</li>
+            <li><input type="checkbox" class="email" value="smdur.ddupendencia@gravatai.rs.gov.br"> smdur.ddupendencia@gravatai.rs.gov.br</li>
+        </ul>
+        
+        <input type="text" id="novo-email" placeholder="Digite um e-mail">
+        <button onclick="adicionarEmail()">Adicionar E-mail</button>
+        
+        <h2>Escolha uma mensagem:</h2>
+        <select id="mensagem-selecionada">
+            <option value="">Selecione uma mensagem</option>
+            <option value="Bom dia Carol, tudo bem?
+
+            Querida, seguem em anexo a documentação necessária para a liberação online do alvará de construção, planta simplificada, certidão de numeração, e memorial descritivo da construção do Processo n° 35158 / 2024 em nome de Patricia Da Rosa. 
+            
+            Segue a seguinte documentação apensada:
+            
+            1-            Taxa de aprovação de projeto e respectivo comprovante de pagamento;
+            2-            CND do cadastro imobiliário;
+            3-            CND DO CPF do proprietário;
+            4-            CND do CPF do Eng°; 
+            Desde já agradeço e fico no teu aguardo de um retorno. 
+            
+            Aquele abraço e bom trabalho.
+            ">Opção 1: LIBERAÇÃO DE ÁLVARA DE PRANCHA UNICA APROVADA</option>
+            <option value="Boa tarde Carol, tudo bem?
+
+            Querida, segue em anexo a documentação necessária para a liberação online da carta de habitação, prancha única de regularização aprovada e laudo de regularização aprovado, da construção do Processo n° 55128/2024 de regularização predial, em nome de CLÓVIS NUNES OLIVEIRA. 
+            
+            Segue a seguinte documentação em anexo:
+            
+            1-            Taxa de habite-se e respectivo comprovante de pagamento de habite-se;
+            2-            CND de IPTU cadastro imobiliário;
+            3-            CND DO CPF do proprietário;
+            4-            CND do CPF do Eng°;
+            
+            Desde já agradeço e fico no teu aguardo de um retorno.
+            
+            Aquele abraço e bom trabalho.
+            
+            ">Opção 2:LIBERAÇÃO DE PLANTA DE REGULARIZAÇÃO E CARTA DE HABITE-SE.</option>
+            <option value="Boa tarde  Arqª LUCIANA SOUZA,
+            Venho por meio deste solicitar reapresentação do processo n° 25869/2024, em nome de ASTORIA PAPEIS LTDA, com todas as correções que foram solicitadas, onde seguem anexos as seguintes documentações para a tua apreciação: 
+            
+            1.            Prancha única simplificada retificada;
+            Sendo o que tinha agradeço desde já e fico a disposição para tudo o que mais necessário for,
+            
+             Um grande abraço cordial.
+            ">Opção 3: REANALISE DE PROJETO</option>
+            <option value="Bom Dia Eng° Jairo e/ou Eng° Daniel
+            Venho por meio deste solicitar a vistoria das instalações hidrossanitárias após sua execução, referente ao Processo nº 106230/2021, em nome de IGREJA ACAO DE DEUS - IAD, CPF/CNPJ N° 27.795.497/0001-38, onde segue em anexo a seguinte documentação:
+            Segue a seguinte documentação apensada:
+            
+            1-	Projeto de drenagem retificado; 
+            ">Opção 4: REANALISE DE DRENAGEM</option>
+            <option value="Agradeço pelo seu tempo e atenção. Qualquer dúvida, estou à disposição.">Opção 5: Agradecimento</option>
+        </select>
+        
+        <button onclick="redirecionarGmail()">Enviar E-mail</button>
+    </div>
+
+    <script>
+        function adicionarEmail() {
+            let inputEmail = document.getElementById("novo-email");
+            let email = inputEmail.value.trim();
+            
+            if (email === "") {
+                alert("Digite um e-mail válido.");
+                return;
+            }
+            
+            let emailList = document.getElementById("email-list");
+            let li = document.createElement("li");
+            li.innerHTML = `<input type="checkbox" class="email" value="${email}"> ${email}`;
+            emailList.appendChild(li);
+            
+            inputEmail.value = "";
+        }
+        
+        function redirecionarGmail() {
+            let emailsSelecionados = [];
+            document.querySelectorAll('.email:checked').forEach(checkbox => {
+                emailsSelecionados.push(checkbox.value);
+            });
+            
+            if (emailsSelecionados.length === 0) {
+                alert("Selecione pelo menos um destinatário.");
+                return;
+            }
+            
+            let mensagem = document.getElementById("mensagem-selecionada").value;
+            if (mensagem === "") {
+                alert("Selecione uma mensagem para enviar.");
+                return;
+            }
+            
+            let mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(emailsSelecionados.join(','))}&body=${encodeURIComponent(mensagem)}`;
+            window.open(mailtoLink, '_blank');
+        }
+    </script>
+</body>
+</html>
+
